@@ -3,13 +3,15 @@ package question2;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Stack;
+
 
 public class JPanelListe2 extends JPanel implements ActionListener, ItemListener {
 
@@ -33,6 +35,9 @@ public class JPanelListe2 extends JPanel implements ActionListener, ItemListener
 
     private List<String> liste;
     private Map<String, Integer> occurrences;
+    
+    
+    private Stack<List<String>> pileSave;
 
     public JPanelListe2(List<String> liste, Map<String, Integer> occurrences) {
         this.liste = liste;
@@ -67,6 +72,13 @@ public class JPanelListe2 extends JPanel implements ActionListener, ItemListener
         add(texte, "Center");
 
         boutonRechercher.addActionListener(this);
+        boutonRetirer.addActionListener(this);
+        boutonOccurrences.addActionListener(this);
+        ordreCroissant.addItemListener(this);
+        ordreDecroissant.addItemListener(this);
+        
+        boutonAnnuler.addActionListener(this);
+
         // à compléter;
 
     }
@@ -100,10 +112,19 @@ public class JPanelListe2 extends JPanel implements ActionListener, ItemListener
     }
 
     public void itemStateChanged(ItemEvent ie) {
-        if (ie.getSource() == ordreCroissant)
-        ;// à compléter
-        else if (ie.getSource() == ordreDecroissant)
-        ;// à compléter
+        List<String> listeBis = new ArrayList<String>(this.liste);
+        boolean resultat = false;
+        
+        if (ie.getSource() == ordreCroissant){
+            resultat=true;
+            if(resultat) sauvegarder(listeBis);
+            Collections.sort(this.liste);
+        } else if (ie.getSource() == ordreDecroissant){
+            resultat=true;
+            if(resultat) sauvegarder(listeBis);
+            Collections.sort(this.liste,Collections.reverseOrder());
+        }
+        // à compléter
 
         texte.setText(liste.toString());
     }
@@ -113,7 +134,23 @@ public class JPanelListe2 extends JPanel implements ActionListener, ItemListener
         // à compléter
         // à compléter
         // à compléter
+        List<String> tmp =this.liste;
+        Iterator<String> it = tmp.iterator();
+        while(it.hasNext()){
+            String s = it.next();
+            if(s.startsWith(prefixe)){
+                it.remove();
+                resultat=true;
+                this.occurrences.put(s,0);
+            }
+            
+        }
         return resultat;
+    }
+    
+      private void sauvegarder(List<String> listSave){
+        pileSave.push(listSave);
+        
     }
 
 }

@@ -102,15 +102,25 @@ public class JPanelListe extends JPanel implements ActionListener, ItemListener 
 
     public void itemStateChanged(ItemEvent ie) {
         if (ie.getSource() == ordreCroissant)
-            ;// à compléter
+            Collections.sort(this.liste);
         else if (ie.getSource() == ordreDecroissant)
-            ;// à compléter
+            Collections.sort(this.liste,Collections.reverseOrder());
 
         texte.setText(liste.toString());
     }
 
     private boolean retirerDeLaListeTousLesElementsCommencantPar(String prefixe) {
         boolean resultat = false;
+        Iterator<String> it = this.liste.iterator();
+        while(it.hasNext()){
+            String s = it.next();
+            if(s.startsWith(prefixe)){
+                it.remove();
+                resultat=true;
+                this.occurrences.put(s,0);
+            }
+            
+        }
         // à compléter
         // à compléter
         // à compléter
