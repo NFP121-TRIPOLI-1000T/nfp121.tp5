@@ -2,6 +2,8 @@ package question1;
 
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class IHMTestEnsemble extends JFrame {
 
@@ -31,11 +33,12 @@ public class IHMTestEnsemble extends JFrame {
         setLocation(200,200);
         pack();
         setVisible(true);
+        
     }
 
     private void initComponents() {// GEN-BEGIN:initComponents
         setLayout(new GridLayout(4, 1, 2, 2));
-
+        
         panel1 = new JPanel();
         panel1.setLayout(new java.awt.FlowLayout(0, 5, 5));
         panel1.setBackground(java.awt.Color.lightGray);
@@ -71,7 +74,9 @@ public class IHMTestEnsemble extends JFrame {
         button1 = new JButton("union");
         button1.setBackground(java.awt.Color.red);
         button1.setName("union");
-        button1.addActionListener(null  // à compléter, par une instance de
+        button1.addActionListener(
+            
+        // à compléter, par une instance de
                                         // classe anonyme, usage de
                                         // unionActionPerformed voir en bas de
                                         // page
